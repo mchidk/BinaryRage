@@ -5,20 +5,23 @@ No configuration, no server, no setup - simply reference the dll and start using
 
 ## Show me the code
 Simple class - simple include [Serializable]
-        [Serializable]
-      	public class Product
-      	{
-          public string Title { get; set; }
-      		public string ThumbUrl { get; set; }
-      		public string Description { get; set; }
-      		public float Price { get; set; }
-      	}
+
+	[Serializable]
+	public class Product
+	{
+		public string Title { get; set; }
+		public string ThumbUrl { get; set; }
+		public string Description { get; set; }
+		public float Price { get; set; }
+	}
 
 Insert-syntax (same for create and update)
-  BinaryRage.DB<List<Product>>.Insert("mykey", listOfProducts, @"C:\testpath");
+
+	BinaryRage.DB<List<Product>>.Insert("mykey", listOfProducts, @"C:\testpath");
 
 Get the saved data
-  var listOfProducts = BinaryRage.DB<List<Product>>.Get("mykey", @"C:\testpath");
+
+	var listOfProducts = BinaryRage.DB<List<Product>>.Get("mykey", @"C:\testpath");
 
 That's it - can it be any simpler?
 
