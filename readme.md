@@ -48,7 +48,7 @@ We have tested more than 200,000 complex objects (documents) written to disk per
 All writes are performed asynchronously.
 
 ## Why are you compressing the objects before written to disk?
-The less I/O - the better. A compressed object is done less I/O because of less bytes written to disk.
+The less I/O - the better. A compressed object is doing less I/O because of fewer bytes written to disk - simple as that.
 
 ## Why do I have to provide a path when I save an object?
 I have decided that I want to provide sharding directly from the start. You can easily wrap the insert and get methods and "hardcode" the location if you want.
