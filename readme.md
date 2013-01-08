@@ -7,9 +7,9 @@
 
 ## Created by Michael Christensen (shameless facts)
 + I'm Chief Technical Officer, Technical Lead in a mid-sized web-agency in Denmark using .NET
-+ Love startups
++ Doing a bit of consulting on special occasions
++ Love startups and performance
 + Twitter: @mchidk
-+ email: wickedrgb a gmail.com
 
 ## Show me the code
 Simple class - simple include [Serializable]
