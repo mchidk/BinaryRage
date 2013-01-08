@@ -7,7 +7,7 @@
 
 ## Created by Michael Christensen (shameless facts)
 + I'm Chief Technical Officer, Technical Lead in a mid-sized web-agency in Denmark using .NET
-+ Love startups - contact me if you want
++ Love startups
 + Twitter: @mchidk
 + email: wickedrgb a gmail.com
 
