@@ -2,8 +2,8 @@
 + BinaryRage is designed to be a lightweight fast document database for .NET. 
 + 100% FREE and open (no paid pro version or anything lame like that)
 + No configuration, no strange driver/connector, no server, no setup - simply reference the dll and start using it in less than a minute.
-+ Created it because I think there is a huge need for a very simple document database.
-+ Wanted to share it with you so you can use your time coding... not writing boilerplate crap.
++ Created it because I think there is a huge need for a very simple document database
++ IF you hate writing boilerplate code - you will love BinaryRage
 
 ## Created by Michael Christensen (shameless facts)
 + I'm Chief Technical Officer, Technical Lead in a mid-sized web-agency in Denmark using .NET
