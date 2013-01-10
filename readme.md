@@ -2,6 +2,7 @@
 + BinaryRage is designed to be a lightweight fast document database for .NET. 
 + 100% FREE and open (no paid pro version or anything lame like that)
 + No configuration, no strange driver/connector, no server, no setup - simply reference the dll and start using it in less than a minute.
++ Supports complex objects (and lists of objects)
 + Created it because I think there is a huge need for a very simple document database
 + If you hate writing boilerplate code - you will love BinaryRage
 
@@ -12,7 +13,7 @@
 + Twitter: @mchidk
 
 ## Show me the code
-Simple class - simple include [Serializable]
+Simple class - simply include an [Serializable] attribute.
 
 	[Serializable]
 	public class Product
