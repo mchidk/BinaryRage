@@ -6,7 +6,7 @@ namespace BinaryRage.Functions
 {
 	public class ConvertHelper
 	{
-
+		//Convert objct to ByteArray
 		public static byte[] ObjectToByteArray(object obj)
 		{
 			if (obj == null)
@@ -25,6 +25,7 @@ namespace BinaryRage.Functions
 			return ms.ToArray();
 		}
 
+		//Convert BytesArray to object
 		public static Object ByteArrayToObject(byte[] arrBytes)
 		{
 			MemoryStream memStream = new MemoryStream();

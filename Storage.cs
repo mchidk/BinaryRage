@@ -5,7 +5,7 @@ using System.Threading;
 
 namespace BinaryRage
 {
-	public static class Storage
+	internal static class Storage
 	{
 		private const string DB_EXTENTION = ".odb";
 
@@ -52,7 +52,7 @@ namespace BinaryRage
 				
 				//remove object from cache
 				SimpleObject tmpSimpleObject;
-				Cache.cacheDic.TryRemove(key, out tmpSimpleObject);
+				Cache.CacheDic.TryRemove(key, out tmpSimpleObject);
 			}
 			catch (Exception)
 			{

@@ -11,7 +11,6 @@ namespace BinaryRage
 {
 	static public class DB<T>
 	{
-		//static BlockingCollection<SimpleObject> sendQueue = new BlockingCollection<SimpleObject>(new ConcurrentQueue<SimpleObject>());
 		static BlockingCollection<SimpleObject> sendQueue = new BlockingCollection<SimpleObject>();
 
 		static public void Insert(string key, T value, string filelocation)
@@ -27,7 +26,7 @@ namespace BinaryRage
 			{
 				//Add to cache
 				Interlocked.Increment(ref Cache.counter);
-				Cache.cacheDic.TryAdd(key, simpleObject);
+				Cache.CacheDic.TryAdd(key, simpleObject);
 				Storage.WritetoStorage(data.Key, Compress.CompressGZip(ConvertHelper.ObjectToByteArray(value)), data.FileLocation);
 				//Thread.Sleep(7);
 			});
@@ -43,24 +42,16 @@ namespace BinaryRage
 		static public T Get(string key, string filelocation)
 		{
 			//Try getting the object from cache first
-			if (!Cache.cacheDic.IsEmpty)
+			if (!Cache.CacheDic.IsEmpty)
 			{
 				SimpleObject simpleObjectFromCache;
-				if (Cache.cacheDic.TryGetValue(key, out simpleObjectFromCache))
+				if (Cache.CacheDic.TryGetValue(key, out simpleObjectFromCache))
 					return (T) simpleObjectFromCache.Value;
 			}
 			
 			byte[] compressGZipData = Compress.DecompressGZip(Storage.GetFromStorage(key, filelocation));
 			T umcompressedObject = (T)ConvertHelper.ByteArrayToObject(compressGZipData);
 			return umcompressedObject;
-		}
-
-		static public IEnumerable<string> Match(string map, string startfilelocation)
-		{
-			Regex reg = new Regex(map);
-			var filelist = Directory.GetFiles(startfilelocation, "*.odb", SearchOption.AllDirectories).Where(m => reg.IsMatch(m));
-
-			return filelist;
 		}
 
 	}

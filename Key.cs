@@ -10,7 +10,7 @@ namespace BinaryRage
 	{
 
 		/// <summary>
-		/// Hex string lookup table.
+		/// Hex string lookup table. Faster to have them in a string array
 		/// </summary>
 		private static readonly string[] HexStringTable = new string[]
 {
@@ -55,13 +55,6 @@ namespace BinaryRage
 			return stringBuilder.ToString();
 		}
 
-
-		internal static IEnumerable<string> Splitkey(string key)
-		{
-			return key.SplitByLength(key.Length / 4);
-		}
-
-
 		private static string generateFastUniqueKey()
 		{
 			const int size = 5;
@@ -79,6 +72,11 @@ namespace BinaryRage
 			}
 
 			return result.ToString();
+		}
+
+		internal static IEnumerable<string> Splitkey(string key)
+		{
+			return key.SplitByLength(key.Length / 4);
 		}
 
 		public static string GenerateUniqueKey()

@@ -47,9 +47,14 @@
     <Compile Include="Functions\Compress.cs" />
     <Compile Include="Functions\ConvertHelper.cs" />
     <Compile Include="Key.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SimpleObject.cs" />
     <Compile Include="Storage.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="readme.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

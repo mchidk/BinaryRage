@@ -5,7 +5,7 @@ using System.Text;
 
 namespace BinaryRage
 {
-	public class SimpleObject
+	internal class SimpleObject
 	{
 		public string Key { get; set; }
 		public object Value { get; set; }

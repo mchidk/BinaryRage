@@ -6,11 +6,9 @@ using System.Text;
 
 namespace BinaryRage
 {
-	public class Cache
+	internal class Cache
 	{
-		public static ConcurrentDictionary<string, SimpleObject> cacheDic = new ConcurrentDictionary<string, SimpleObject>();
-		
-		//todo move counter and other internal stuff? to other places
+		public static ConcurrentDictionary<string, SimpleObject> CacheDic = new ConcurrentDictionary<string, SimpleObject>();
 		public static int counter = 0;
 	}
 }
