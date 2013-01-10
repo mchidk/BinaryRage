@@ -32,9 +32,9 @@ Get the saved data
 
 	var listOfProducts = BinaryRage.DB<List<Product>>.Get("mykey", @"C:\testpath");
 
-If you use it to save objects - you can query them with LINQ directly like this
+Query objects directly with LINQ
 
-	var bestsellers = BinaryRage.DB<List<Category>>.Get("bestsellers", @"C:\!!amazon\").Where(b => !string.IsNullOrEmpty(b.Name));
+	var bestsellers = BinaryRage.DB<List<Category>>.Get("bestsellers", @"C:\products\").Where(p => !string.IsNullOrEmpty(p.Name));
 
 That's it - can it be any simpler?
 
