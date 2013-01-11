@@ -1,9 +1,9 @@
-# BinaryRage - the ultra fast .NET document database
-+ BinaryRage is designed to be a lightweight fast document database for .NET. 
+# BinaryRage - the ultra fast .NET key/value store
++ BinaryRage is designed to be a lightweight fast key/value store for .NET. 
++ Supports complex objects (and lists of objects)
 + 100% FREE and open (no paid pro version or anything lame like that)
 + No configuration, no strange driver/connector, no server, no setup - simply reference the dll and start using it in less than a minute.
-+ Supports complex objects (and lists of objects)
-+ Created it because I think there is a huge need for a very simple document database
++ Created it because I think there is a huge need for a very simple key/value store
 + If you hate writing boilerplate code - you will love BinaryRage
 
 ## Created by Michael Christensen (shameless facts)
@@ -48,7 +48,7 @@ Codebase and usage must be as simple as possible (but not simpler).
 
 # FAQ
 ## Is it really fast?
-We have tested more than 200,000 complex objects (documents) written to disk per second on a crappy laptop :-)
+We have tested more than 200,000 complex objects written to disk per second on a crappy laptop :-)
 
 All writes are performed asynchronously.
 
