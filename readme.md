@@ -1,6 +1,6 @@
 # BinaryRage - the ultra fast .NET key/value store
-+ BinaryRage is designed to be a lightweight fast key/value store for .NET. 
-+ Supports complex objects (and lists of objects)
++ BinaryRage is designed to be a lightweight ultra fast key/value store for .NET
++ Supports complex objects out of the box (and lists of objects)
 + 100% FREE and open (no paid pro version or anything lame like that)
 + No configuration, no strange driver/connector, no server, no setup - simply reference the dll and start using it in less than a minute.
 + Created it because I think there is a huge need for a very simple key/value store
