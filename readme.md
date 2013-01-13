@@ -26,9 +26,17 @@ Simple class - simply include an [Serializable] attribute.
 
 Insert-syntax (same for create and update)
 
+	BinaryRage.DB<Product>.Insert("mykey", Product, @"C:\testpath");
+
+... or with a list
+
 	BinaryRage.DB<List<Product>>.Insert("mykey", listOfProducts, @"C:\testpath");
 
 Get the saved data
+
+	var listOfProducts = BinaryRage.DB<Product>.Get("mykey", @"C:\testpath");
+	
+... or with a list
 
 	var listOfProducts = BinaryRage.DB<List<Product>>.Get("mykey", @"C:\testpath");
 
