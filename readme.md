@@ -26,7 +26,7 @@ Simple class - simply include an [Serializable] attribute.
 
 Insert-syntax (same for create and update)
 
-	BinaryRage.DB<Product>.Insert("mykey", Product, @"C:\testpath");
+	BinaryRage.DB<Product>.Insert("mykey", myProduct, @"C:\testpath");
 
 ... or with a list
 
@@ -38,7 +38,7 @@ Get the saved data
 	
 ... or with a list
 
-	var listOfProducts = BinaryRage.DB<List<Product>>.Get("mykey", @"C:\testpath");
+	var myProduct = BinaryRage.DB<List<Product>>.Get("mykey", @"C:\testpath");
 
 Query objects directly with LINQ
 
