@@ -46,6 +46,19 @@ Query objects directly with LINQ
 
 That's it - can it be any simpler?
 
+## Mini Key api
+
+Generate a unique key
+
+	BinaryRage.DB.Key.GenerateUniqueKey()
+
+Calculate checksum on a string
+
+	BinaryRage.DB.Key.CalculateChecksum(string inputString)
+
+Fast MD5Hash generating
+
+	BinaryRage.DB.Key.GenerateMD5Hash(string input)
 
 ## Goals
 Codebase and usage must be as simple as possible (but not simpler).
