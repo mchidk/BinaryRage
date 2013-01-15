@@ -34,11 +34,11 @@ Insert-syntax (same for create and update)
 
 Get the saved data
 
-	var listOfProducts = BinaryRage.DB<Product>.Get("mykey", @"C:\testpath");
+	var myProduct = BinaryRage.DB<Product>.Get("mykey", @"C:\testpath");
 	
 ... or with a list
 
-	var myProduct = BinaryRage.DB<List<Product>>.Get("mykey", @"C:\testpath");
+	var listOfProducts = BinaryRage.DB<List<Product>>.Get("mykey", @"C:\testpath");
 
 Query objects directly with LINQ
 
@@ -51,14 +51,13 @@ That's it - can it be any simpler?
 Codebase and usage must be as simple as possible (but not simpler).
 
 ## Todo
-- Better queue async writes of objects (must support rewriting the same object severel thousand times - where the last in queue wins and the rest is ignored)
 - Include UnitTests
 
 # FAQ
 ## Is it really fast?
 We have tested more than 200,000 complex objects written to disk per second on a crappy laptop :-)
 
-All writes are performed asynchronously.
+All writes are performed asynchronously. Reads are instantly available (also if writes are not completed) - by design.
 
 ## Why are you compressing the objects before written to disk?
 The less I/O - the better. A compressed object is doing less I/O because of fewer bytes written to disk - simple as that.
