@@ -51,15 +51,15 @@ That's it - can it be any simpler?
 
 Generate a unique key
 
-	BinaryRage.DB.Key.GenerateUniqueKey()
+	BinaryRage.Key.GenerateUniqueKey()
 
 Calculate checksum on a string
 
-	BinaryRage.DB.Key.CalculateChecksum(string inputString)
+	BinaryRage.Key.CalculateChecksum(string inputString)
 
 Fast MD5Hash generating
 
-	BinaryRage.DB.Key.GenerateMD5Hash(string input)
+	BinaryRage.Key.GenerateMD5Hash(string input)
 
 ## Goals
 Codebase and usage must be as simple as possible (but not simpler).
