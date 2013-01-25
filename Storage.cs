@@ -75,6 +75,17 @@ namespace BinaryRage
 			return bytes;
 		}
 
+        public static bool ExistingStorageCheck(string key, string filelocation)
+        {
+            var keyArray = Key.Splitkey(key);
+
+            string dirstructure = "";
+            foreach (var k in keyArray)
+                dirstructure += @"\" + k;
+
+            return File.Exists(filelocation + @"\" + dirstructure + @"\" + key + DB_EXTENTION);
+        }
+
 		public static string GetExactFileLocation(string key, string filelocation)
 		{
 			var keyArray = Key.Splitkey(key);
