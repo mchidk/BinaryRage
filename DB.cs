@@ -54,5 +54,10 @@ namespace BinaryRage
 			return umcompressedObject;
 		}
 
+		static public bool Exists(string key, string filelocation)
+		{
+			return Storage.ExistingStorageCheck(key, filelocation);
+		}
+
 	}
 }
