@@ -26,7 +26,7 @@ namespace BinaryRage
 			{
 				//Add to cache
 				Interlocked.Increment(ref Cache.counter);
-				Cache.CacheDic.TryAdd(key, simpleObject);
+				Cache.CacheDic[key] = simpleObject;
 				Storage.WritetoStorage(data.Key, Compress.CompressGZip(ConvertHelper.ObjectToByteArray(value)), data.FileLocation);
 				//Thread.Sleep(7);
 			});
