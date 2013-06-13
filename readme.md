@@ -65,7 +65,8 @@ Fast MD5Hash generating
 Codebase and usage must be as simple as possible (but not simpler).
 
 ## Todo
-- Include UnitTests
+- Always check out open issues if you want to help out
+- Handle very large objectts
 
 # FAQ
 ## Is it really fast?
