@@ -66,7 +66,7 @@ Codebase and usage must be as simple as possible (but not simpler).
 
 ## Todo
 - Always check out open issues if you want to help out
-- Handle very large objectts
+- Handle very large objects
 
 # FAQ
 ## Is it really fast?
