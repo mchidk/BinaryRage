@@ -52,16 +52,18 @@ namespace BinaryRage
 				
 				//remove object from cache
 				SimpleObject tmpSimpleObject;
-				Cache.CacheDic.TryRemove(key, out tmpSimpleObject);
-			}
+                Cache.CacheDic.TryRemove(filelocation + key, out tmpSimpleObject);
+
+            }
 			catch (Exception)
 			{
 				
 			}
 
 			Interlocked.Decrement(ref Cache.counter);
-			
 		}
+
+
 
 		public static byte[] GetFromStorage(string key, string filelocation)
 		{

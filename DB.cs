@@ -26,7 +26,9 @@ namespace BinaryRage
 			{
 				//Add to cache
 				Interlocked.Increment(ref Cache.counter);
-				Cache.CacheDic[key] = simpleObject;
+				//Cache.CacheDic[key] = simpleObject;
+
+                Cache.CacheDic.AddOrUpdate(filelocation + key, simpleObject, (k, v) => simpleObject);
 				Storage.WritetoStorage(data.Key, Compress.CompressGZip(ConvertHelper.ObjectToByteArray(value)), data.FileLocation);
 				//Thread.Sleep(7);
 			});
@@ -36,7 +38,14 @@ namespace BinaryRage
 
 		static public void Remove(string key, string filelocation)
 		{
-			File.Delete(Storage.GetExactFileLocation(key,filelocation));
+            //File.Delete(Storage.GetExactFileLocation(key,filelocation));
+            if (!Cache.CacheDic.IsEmpty)
+            {
+                SimpleObject value;
+                Cache.CacheDic.TryRemove(filelocation + key, out value);
+            }
+
+            File.Delete(Storage.GetExactFileLocation(key, filelocation));
 		}
 
 		static public T Get(string key, string filelocation)
