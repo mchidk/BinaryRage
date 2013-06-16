@@ -53,7 +53,6 @@ namespace BinaryRage
 				//remove object from cache
 				SimpleObject tmpSimpleObject;
                 Cache.CacheDic.TryRemove(filelocation + key, out tmpSimpleObject);
-
             }
 			catch (Exception)
 			{
@@ -61,6 +60,9 @@ namespace BinaryRage
 			}
 
 			Interlocked.Decrement(ref Cache.counter);
+
+            //Calculate pause based on amount of bytes
+            Thread.Sleep(value.Length / 100);
 		}
 
 

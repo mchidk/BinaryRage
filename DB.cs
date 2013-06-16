@@ -20,8 +20,8 @@ namespace BinaryRage
 			
 			sendQueue.Add(simpleObject);
 			var data = sendQueue.Take(); //this blocks if there are no items in the queue.
-			//ThreadPool.QueueUserWorkItem
-
+			
+            //ThreadPool.QueueUserWorkItem
 			ThreadPool.QueueUserWorkItem(state =>
 			{
 				//Add to cache
@@ -30,10 +30,7 @@ namespace BinaryRage
 
                 Cache.CacheDic.AddOrUpdate(filelocation + key, simpleObject, (k, v) => simpleObject);
 				Storage.WritetoStorage(data.Key, Compress.CompressGZip(ConvertHelper.ObjectToByteArray(value)), data.FileLocation);
-				//Thread.Sleep(7);
 			});
-														//}, packet);
-			//Storage.WritetoStorage(key, compressGZipData, filelocation);
 		}
 
 		static public void Remove(string key, string filelocation)
@@ -54,7 +51,7 @@ namespace BinaryRage
 			if (!Cache.CacheDic.IsEmpty)
 			{
 				SimpleObject simpleObjectFromCache;
-				if (Cache.CacheDic.TryGetValue(key, out simpleObjectFromCache))
+                if (Cache.CacheDic.TryGetValue(filelocation + key, out simpleObjectFromCache))
 					return (T) simpleObjectFromCache.Value;
 			}
 			
