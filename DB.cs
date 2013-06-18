@@ -29,6 +29,7 @@ namespace BinaryRage
 				//Cache.CacheDic[key] = simpleObject;
 
                 Cache.CacheDic.AddOrUpdate(filelocation + key, simpleObject, (k, v) => simpleObject);
+
 				Storage.WritetoStorage(data.Key, Compress.CompressGZip(ConvertHelper.ObjectToByteArray(value)), data.FileLocation);
 			});
 		}

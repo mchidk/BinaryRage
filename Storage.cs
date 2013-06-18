@@ -65,8 +65,6 @@ namespace BinaryRage
             Thread.Sleep(value.Length / 100);
 		}
 
-
-
 		public static byte[] GetFromStorage(string key, string filelocation)
 		{
 			var keyArray = Key.Splitkey(key);
