@@ -12,9 +12,20 @@ namespace BinaryRage
 	static public class DB<T>
 	{
 		static BlockingCollection<SimpleObject> sendQueue = new BlockingCollection<SimpleObject>();
+		internal static CountdownEvent ioDoneEvent = new CountdownEvent(0);
+
+		static public void WaitForCompletion()
+		{
+			ioDoneEvent.Wait();
+		}
 
 		static public void Insert(string key, T value, string filelocation)
 		{
+			if (ioDoneEvent.CurrentCount == 0)
+				ioDoneEvent.Reset(1);
+			else
+				ioDoneEvent.AddCount();
+
 			//How to read from Queue while writing to disk?
 			SimpleObject simpleObject = new SimpleObject {Key = key, Value = value, FileLocation = filelocation};
 			
@@ -31,6 +42,7 @@ namespace BinaryRage
                 Cache.CacheDic.AddOrUpdate(filelocation + key, simpleObject, (k, v) => simpleObject);
 
 				Storage.WritetoStorage(data.Key, Compress.CompressGZip(ConvertHelper.ObjectToByteArray(value)), data.FileLocation);
+				ioDoneEvent.Signal();
 			});
 		}
 
