@@ -34,6 +34,9 @@ namespace BinaryRage
 
 		private static IEnumerable<string> SplitByLength(this string str, int maxLength)
 		{
+			if (maxLength < 1)
+				maxLength = 1;
+
 			for (int index = 0; index < str.Length; index += maxLength)
 			{
 				yield return str.Substring(index, Math.Min(maxLength, str.Length - index));
