@@ -46,6 +46,7 @@
     <Compile Include="DB.cs" />
     <Compile Include="Functions\Compress.cs" />
     <Compile Include="Functions\ConvertHelper.cs" />
+    <Compile Include="Functions\ListHelper.cs" />
     <Compile Include="Key.cs" />
     <Compile Include="SimpleObject.cs" />
     <Compile Include="Storage.cs" />
