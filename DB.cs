@@ -12,19 +12,17 @@ namespace BinaryRage
 	static public class DB<T>
 	{
 		static BlockingCollection<SimpleObject> sendQueue = new BlockingCollection<SimpleObject>();
-		internal static CountdownEvent ioDoneEvent = new CountdownEvent(0);
+		private static int writeCounter;
 
 		static public void WaitForCompletion()
 		{
-			ioDoneEvent.Wait();
+			while (writeCounter > 0)
+				Thread.Sleep(10);
 		}
 
 		static public void Insert(string key, T value, string filelocation)
 		{
-			if (ioDoneEvent.CurrentCount == 0)
-				ioDoneEvent.Reset(1);
-			else
-				ioDoneEvent.AddCount();
+			Interlocked.Increment(ref writeCounter);
 
 			SimpleObject simpleObject = new SimpleObject {Key = key, Value = value, FileLocation = filelocation};
 			
@@ -38,7 +36,8 @@ namespace BinaryRage
 				Interlocked.Increment(ref Cache.counter);
                 Cache.CacheDic[filelocation + key] = simpleObject;
 				Storage.WritetoStorage(data.Key, Compress.CompressGZip(ConvertHelper.ObjectToByteArray(value)), data.FileLocation);
-				ioDoneEvent.Signal();
+
+				Interlocked.Decrement(ref writeCounter);
 			});
 		}
 
