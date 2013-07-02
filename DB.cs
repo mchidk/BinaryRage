@@ -26,7 +26,6 @@ namespace BinaryRage
 			else
 				ioDoneEvent.AddCount();
 
-			//How to read from Queue while writing to disk?
 			SimpleObject simpleObject = new SimpleObject {Key = key, Value = value, FileLocation = filelocation};
 			
 			sendQueue.Add(simpleObject);
@@ -37,10 +36,7 @@ namespace BinaryRage
 			{
 				//Add to cache
 				Interlocked.Increment(ref Cache.counter);
-				//Cache.CacheDic[key] = simpleObject;
-
-                Cache.CacheDic.AddOrUpdate(filelocation + key, simpleObject, (k, v) => simpleObject);
-
+                Cache.CacheDic[filelocation + key] = simpleObject;
 				Storage.WritetoStorage(data.Key, Compress.CompressGZip(ConvertHelper.ObjectToByteArray(value)), data.FileLocation);
 				ioDoneEvent.Signal();
 			});
@@ -48,7 +44,6 @@ namespace BinaryRage
 
 		static public void Remove(string key, string filelocation)
 		{
-            //File.Delete(Storage.GetExactFileLocation(key,filelocation));
             if (!Cache.CacheDic.IsEmpty)
             {
                 SimpleObject value;

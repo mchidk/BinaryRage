@@ -46,8 +46,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DBTests.cs" />
+    <Compile Include="Model.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WaitForCompletionTests.cs" />
+    <Compile Include="SmallKeyTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
