@@ -29,7 +29,6 @@ namespace BinaryRage
 			sendQueue.Add(simpleObject);
 			var data = sendQueue.Take(); //this blocks if there are no items in the queue.
 			
-            //ThreadPool.QueueUserWorkItem
 			ThreadPool.QueueUserWorkItem(state =>
 			{
 				//Add to cache
