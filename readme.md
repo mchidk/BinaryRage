@@ -41,9 +41,20 @@ Get the saved data
 
 	var listOfProducts = BinaryRage.DB<List<Product>>.Get("mykey", @"C:\testpath");
 
+... get JSON 
+
+	var myJSON = BinaryRage.DB<List<Product>>.GetJSON("mykey", @"C:\testpath");
+
+
 Query objects directly with LINQ
 
 	var bestsellers = BinaryRage.DB<List<Category>>.Get("bestsellers", @"C:\products\").Where(p => !string.IsNullOrEmpty(p.Name));
+
+Check if all writes are done
+
+	BinaryRage.DB.WaitForCompletion();
+
+
 
 That's it - can it be any simpler?
 
@@ -60,10 +71,6 @@ Calculate checksum on a string
 Fast MD5Hash generating
 
 	BinaryRage.Key.GenerateMD5Hash(string input);
-
-Check if all writes are done
-
-	BinaryRage.DB.WaitForCompletion();
 
 ## Goals
 Codebase and usage must be as simple as possible (but not simpler).
