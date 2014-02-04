@@ -45,7 +45,6 @@ namespace BinaryRage
 			//Try getting the object from cache first
 			if (!Cache.CacheDic.IsEmpty)
 			{
-				//Console.WriteLine("BR - NOT empty");
 				SimpleObject simpleObjectFromCache;
                 if (Cache.CacheDic.TryGetValue(filelocation + key, out simpleObjectFromCache))
 					return (T) simpleObjectFromCache.Value;
@@ -55,6 +54,11 @@ namespace BinaryRage
 			byte[] compressGZipData = Compress.DecompressGZip(Storage.GetFromStorage(key, filelocation));
 			T umcompressedObject = (T)ConvertHelper.ByteArrayToObject(compressGZipData);
 			return umcompressedObject;
+		}
+
+		static public string GetJSON<T>(string key, string filelocation)
+		{
+			return SimpleSerializer.Serrialize(Get<T>(key, filelocation));
 		}
 
 		static public bool Exists(string key, string filelocation)
