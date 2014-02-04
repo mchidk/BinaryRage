@@ -27,11 +27,11 @@ Simple class - simply include an [Serializable] attribute.
 
 Insert-syntax (same for create and update)
 
-	BinaryRage.DB<Product>.Insert("mykey", myProduct, @"C:\testpath");
+	BinaryRage.DB.Insert("mykey", myProduct, @"C:\testpath");
 
 ... or with a list
 
-	BinaryRage.DB<List<Product>>.Insert("mykey", listOfProducts, @"C:\testpath");
+	BinaryRage.DB.Insert("mykey", listOfProducts, @"C:\testpath");
 
 Get the saved data
 
@@ -51,15 +51,19 @@ That's it - can it be any simpler?
 
 Generate a unique key
 
-	BinaryRage.Key.GenerateUniqueKey()
+	BinaryRage.Key.GenerateUniqueKey();
 
 Calculate checksum on a string
 
-	BinaryRage.Key.CalculateChecksum(string inputString)
+	BinaryRage.Key.CalculateChecksum(string inputString);
 
 Fast MD5Hash generating
 
-	BinaryRage.Key.GenerateMD5Hash(string input)
+	BinaryRage.Key.GenerateMD5Hash(string input);
+
+Check if all writes are done
+
+	BinaryRage.DB.WaitForCompletion();
 
 ## Goals
 Codebase and usage must be as simple as possible (but not simpler).
