@@ -20,8 +20,6 @@ namespace BinaryRage.Functions
 				bf.Serialize(ms, obj);	
 			}
 
-			obj = null;
-
 			return ms.ToArray();
 		}
 

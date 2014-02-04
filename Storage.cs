@@ -104,5 +104,8 @@ namespace BinaryRage
 			byte[] bytes = File.ReadAllBytes(filelocation);
 			return bytes;
 		}
+
+
+
 	}
 }

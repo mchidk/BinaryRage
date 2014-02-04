@@ -9,34 +9,23 @@ using BinaryRage.Functions;
 
 namespace BinaryRage
 {
-	static public class DB<T>
+	static public class DB
 	{
 		static BlockingCollection<SimpleObject> sendQueue = new BlockingCollection<SimpleObject>();
-		private static int writeCounter;
 
-		static public void WaitForCompletion()
+		static public void Insert<T>(string key, T value, string filelocation)
 		{
-			while (writeCounter > 0)
-				Thread.Sleep(10);
-		}
-        
-		static public void Insert(string key, T value, string filelocation)
-		{
-			Interlocked.Increment(ref writeCounter);
-
+			Interlocked.Increment(ref Cache.counter);
 			SimpleObject simpleObject = new SimpleObject {Key = key, Value = value, FileLocation = filelocation};
 			
 			sendQueue.Add(simpleObject);
 			var data = sendQueue.Take(); //this blocks if there are no items in the queue.
-			
+
 			ThreadPool.QueueUserWorkItem(state =>
 			{
 				//Add to cache
-				Interlocked.Increment(ref Cache.counter);
-                Cache.CacheDic[filelocation + key] = simpleObject;
+				Cache.CacheDic[filelocation + key] = simpleObject;
 				Storage.WritetoStorage(data.Key, Compress.CompressGZip(ConvertHelper.ObjectToByteArray(value)), data.FileLocation);
-
-				Interlocked.Decrement(ref writeCounter);
 			});
 		}
 
@@ -51,16 +40,18 @@ namespace BinaryRage
             File.Delete(Storage.GetExactFileLocation(key, filelocation));
 		}
 
-		static public T Get(string key, string filelocation)
+		static public T Get<T>(string key, string filelocation)
 		{
 			//Try getting the object from cache first
 			if (!Cache.CacheDic.IsEmpty)
 			{
+				//Console.WriteLine("BR - NOT empty");
 				SimpleObject simpleObjectFromCache;
                 if (Cache.CacheDic.TryGetValue(filelocation + key, out simpleObjectFromCache))
 					return (T) simpleObjectFromCache.Value;
 			}
-			
+
+			//Get from disk
 			byte[] compressGZipData = Compress.DecompressGZip(Storage.GetFromStorage(key, filelocation));
 			T umcompressedObject = (T)ConvertHelper.ByteArrayToObject(compressGZipData);
 			return umcompressedObject;
@@ -69,6 +60,14 @@ namespace BinaryRage
 		static public bool Exists(string key, string filelocation)
 		{
 			return Storage.ExistingStorageCheck(key, filelocation);
+		}
+
+		static public void WaitForCompletion()
+		{
+			while (Cache.counter > 0)
+			{
+				Thread.Sleep(10);
+			}
 		}
 
 	}
