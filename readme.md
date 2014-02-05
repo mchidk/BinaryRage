@@ -81,7 +81,7 @@ Codebase and usage must be as simple as possible (but not simpler).
 
 # FAQ
 ## Is it really fast?
-We have tested more than 200,000 complex objects written to disk per second on a crappy laptop :-)
+We have tested more than 400,000 complex objects written to disk per second on a crappy laptop :-)
 
 All writes are performed asynchronously. Reads are instantly available (also if writes are not completed) - by design.
 
