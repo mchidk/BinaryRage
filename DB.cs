@@ -21,10 +21,10 @@ namespace BinaryRage
 			sendQueue.Add(simpleObject);
 			var data = sendQueue.Take(); //this blocks if there are no items in the queue.
 
+			//Add to cache
+			Cache.CacheDic[filelocation + key] = simpleObject;
 			ThreadPool.QueueUserWorkItem(state =>
 			{
-				//Add to cache
-				Cache.CacheDic[filelocation + key] = simpleObject;
 				Storage.WritetoStorage(data.Key, Compress.CompressGZip(ConvertHelper.ObjectToByteArray(value)), data.FileLocation);
 			});
 		}
