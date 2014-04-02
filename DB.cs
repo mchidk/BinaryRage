@@ -63,6 +63,12 @@ namespace BinaryRage
 
 		static public bool Exists(string key, string filelocation)
 		{
+            //Check the cache first, to avoid unnecessary io.
+            if (!Cache.CacheDic.IsEmpty && Cache.CacheDic.ContainsKey(filelocation + key))
+            {
+                return true;
+            }
+
 			return Storage.ExistingStorageCheck(key, filelocation);
 		}
 
