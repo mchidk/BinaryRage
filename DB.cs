@@ -53,6 +53,10 @@ namespace BinaryRage
 			//Get from disk
 			byte[] compressGZipData = Compress.DecompressGZip(Storage.GetFromStorage(key, filelocation));
 			T umcompressedObject = (T)ConvertHelper.ByteArrayToObject(compressGZipData);
+
+            //Add to cache
+            Cache.CacheDic[filelocation + key] = new SimpleObject { Key = key, Value = umcompressedObject, FileLocation = filelocation }; 
+
 			return umcompressedObject;
 		}
 
