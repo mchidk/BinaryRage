@@ -11,20 +11,23 @@ namespace BinaryRage
 {
 	static public class DB
 	{
-        static public void Insert<T>(string key, T value, string filelocation)
-        {
-            Interlocked.Increment(ref Cache.counter);
-            SimpleObject simpleObject = new SimpleObject { Key = key, Value = value, FileLocation = filelocation };
+		static BlockingCollection<SimpleObject> sendQueue = new BlockingCollection<SimpleObject>();
 
-            //Add to cache
-            Cache.CacheDic[filelocation + key] = simpleObject;
+		static public void Insert<T>(string key, T value, string filelocation)
+		{
+			Interlocked.Increment(ref Cache.counter);
+			SimpleObject simpleObject = new SimpleObject {Key = key, Value = value, FileLocation = filelocation};
+			
+			sendQueue.Add(simpleObject);
+			var data = sendQueue.Take(); //this blocks if there are no items in the queue.
 
-            ThreadPool.QueueUserWorkItem(state =>
-            {
-                SimpleObject data = (SimpleObject) state;
-                Storage.WritetoStorage(data.Key, Compress.CompressGZip(ConvertHelper.ObjectToByteArray(data.Value)), data.FileLocation);
-            }, simpleObject);
-        }
+			//Add to cache
+			Cache.CacheDic[filelocation + key] = simpleObject;
+			ThreadPool.QueueUserWorkItem(state =>
+			{
+				Storage.WritetoStorage(data.Key, Compress.CompressGZip(ConvertHelper.ObjectToByteArray(value)), data.FileLocation);
+			});
+		}
 
 		static public void Remove(string key, string filelocation)
 		{
