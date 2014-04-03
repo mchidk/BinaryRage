@@ -53,6 +53,10 @@ namespace BinaryRage
 			//Get from disk
 			byte[] compressGZipData = Compress.DecompressGZip(Storage.GetFromStorage(key, filelocation));
 			T umcompressedObject = (T)ConvertHelper.ByteArrayToObject(compressGZipData);
+
+            //Add to cache
+            Cache.CacheDic[filelocation + key] = new SimpleObject { Key = key, Value = umcompressedObject, FileLocation = filelocation }; 
+
 			return umcompressedObject;
 		}
 
@@ -63,6 +67,12 @@ namespace BinaryRage
 
 		static public bool Exists(string key, string filelocation)
 		{
+            //Check the cache first, to avoid unnecessary io.
+            if (!Cache.CacheDic.IsEmpty && Cache.CacheDic.ContainsKey(filelocation + key))
+            {
+                return true;
+            }
+
 			return Storage.ExistingStorageCheck(key, filelocation);
 		}
 
