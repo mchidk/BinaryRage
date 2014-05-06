@@ -35,20 +35,20 @@ Insert-syntax (same for create and update)
 
 Get the saved data
 
-	var myProduct = BinaryRage.DB<Product>.Get("mykey", @"C:\testpath");
+	var myProduct = BinaryRage.DB.Get<Product>("mykey", @"C:\testpath");
 	
 ... or with a list
 
-	var listOfProducts = BinaryRage.DB<List<Product>>.Get("mykey", @"C:\testpath");
+	var listOfProducts = BinaryRage.DB.Get<List<Product>>("mykey", @"C:\testpath");
 
 ... get JSON 
 
-	var myJSON = BinaryRage.DB<List<Product>>.GetJSON("mykey", @"C:\testpath");
+	var myJSON = BinaryRage.DB.GetJSON<List<Product>>("mykey", @"C:\testpath");
 
 
 Query objects directly with LINQ
 
-	var bestsellers = BinaryRage.DB<List<Category>>.Get("bestsellers", @"C:\products\").Where(p => !string.IsNullOrEmpty(p.Name));
+	var bestsellers = BinaryRage.DB.Get<List<Category>>("bestsellers", @"C:\products\").Where(p => !string.IsNullOrEmpty(p.Name));
 
 Check if all writes are done
 
