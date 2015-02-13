@@ -28,7 +28,7 @@ namespace BinaryRage
 			{
 				try
 				{
-					keypath += @"\" + k;
+					keypath += Path.DirectorySeparatorChar + k;
 					if (!Directory.Exists(filelocation + keypath))
 						Directory.CreateDirectory(filelocation + keypath);
 				}
@@ -48,7 +48,7 @@ namespace BinaryRage
 			//Write the file to it's location
 			try
 			{
-				File.WriteAllBytes(dirstructure + @"\" + key + DB_EXTENTION, value);
+                File.WriteAllBytes(dirstructure + Path.DirectorySeparatorChar + key + DB_EXTENTION, value);
 				
 				//remove object from cache
 				SimpleObject tmpSimpleObject;
@@ -71,9 +71,9 @@ namespace BinaryRage
 
 			string dirstructure = "";
 			foreach (var k in keyArray)
-				dirstructure += @"\" + k;
+                dirstructure += Path.DirectorySeparatorChar + k;
 
-			byte[] bytes = File.ReadAllBytes(filelocation + @"\" + dirstructure + @"\" + key + DB_EXTENTION);
+            byte[] bytes = File.ReadAllBytes(filelocation + Path.DirectorySeparatorChar + dirstructure + Path.DirectorySeparatorChar + key + DB_EXTENTION);
 			return bytes;
 		}
 
@@ -83,9 +83,9 @@ namespace BinaryRage
 
 			string dirstructure = "";
 			foreach (var k in keyArray)
-				dirstructure += @"\" + k;
+                dirstructure += Path.DirectorySeparatorChar + k;
 
-			return File.Exists(filelocation + @"\" + dirstructure + @"\" + key + DB_EXTENTION);
+            return File.Exists(filelocation + Path.DirectorySeparatorChar + dirstructure + Path.DirectorySeparatorChar + key + DB_EXTENTION);
 		}
 
 		public static string GetExactFileLocation(string key, string filelocation)
@@ -94,9 +94,9 @@ namespace BinaryRage
 
 			string dirstructure = "";
 			foreach (var k in keyArray)
-				dirstructure += @"\" + k;
+                dirstructure += Path.DirectorySeparatorChar + k;
 
-			return filelocation + @"\" + dirstructure + @"\" + key + DB_EXTENTION;
+            return filelocation + Path.DirectorySeparatorChar + dirstructure + Path.DirectorySeparatorChar + key + DB_EXTENTION;
 		}
 
 		public static byte[] GetFromStorageWithKnownFileLocation(string filelocation)
