@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.IO;
 using System.Threading;
 
@@ -49,10 +48,12 @@ namespace BinaryRage
 			try
 			{
                 File.WriteAllBytes(dirstructure + Path.DirectorySeparatorChar + key + DB_EXTENTION, value);
-				
-				//remove object from cache
-				SimpleObject tmpSimpleObject;
-                Cache.CacheDic.TryRemove(filelocation + key, out tmpSimpleObject);
+
+                lock (Cache.LockObject)
+                {
+                    //remove object from cache
+                    Cache.CacheDic.Remove(filelocation + key);
+                }
             }
 			catch (Exception)
 			{
