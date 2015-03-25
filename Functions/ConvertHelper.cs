@@ -10,7 +10,7 @@ namespace BinaryRage.Functions
 		public static byte[] ObjectToByteArray(object obj)
 		{
 			if (obj == null)
-				return null;
+				return new byte[0];
 		
 			BinaryFormatter bf = new BinaryFormatter();
 			MemoryStream ms = new MemoryStream();
@@ -26,6 +26,9 @@ namespace BinaryRage.Functions
 		//Convert BytesArray to object
 		public static Object ByteArrayToObject(byte[] arrBytes)
 		{
+            if (arrBytes == null || arrBytes.Length == 0)
+                return null;
+
 			MemoryStream memStream = new MemoryStream();
 			BinaryFormatter binForm = new BinaryFormatter();
 			memStream.Write(arrBytes, 0, arrBytes.Length);
