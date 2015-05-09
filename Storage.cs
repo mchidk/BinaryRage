@@ -37,7 +37,7 @@ namespace BinaryRage
 			//Write the file to it's location
 			try
 			{
-                File.WriteAllBytes(dirstructure + Path.DirectorySeparatorChar + key + DB_EXTENTION, value);
+                File.WriteAllBytes(CombinePathAndKey(dirstructure, key), value);
 
                 lock (Cache.LockObject)
                 {
@@ -68,14 +68,19 @@ namespace BinaryRage
 
 		public static string GetExactFileLocation(string key, string filelocation)
 		{
-			return Path.Combine(
-				Path.Combine(GetFolders(key, filelocation).ToArray()),
-				key + DB_EXTENTION);
+			return CombinePathAndKey(
+				path: Path.Combine(GetFolders(key, filelocation).ToArray()),
+				key: key);
 		}
 
 		public static byte[] GetFromStorageWithKnownFileLocation(string filelocation)
 		{
 			return File.ReadAllBytes(filelocation);
+		}
+
+		private static string CombinePathAndKey(string path, string key)
+		{
+			return Path.Combine(path, key + DB_EXTENTION);
 		}
 
 		private static IEnumerable<string> GetFolders(string key, string filelocation)
