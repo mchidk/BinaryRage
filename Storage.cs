@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.IO;
 using System.Threading;
 
@@ -68,42 +69,25 @@ namespace BinaryRage
 
 		public static byte[] GetFromStorage(string key, string filelocation)
 		{
-			var keyArray = Key.Splitkey(key);
-
-			string dirstructure = "";
-			foreach (var k in keyArray)
-                dirstructure += Path.DirectorySeparatorChar + k;
-
-            byte[] bytes = File.ReadAllBytes(filelocation + Path.DirectorySeparatorChar + dirstructure + Path.DirectorySeparatorChar + key + DB_EXTENTION);
-			return bytes;
+			return File.ReadAllBytes(GetExactFileLocation(key, filelocation));
 		}
 
 		public static bool ExistingStorageCheck(string key, string filelocation)
 		{
-			var keyArray = Key.Splitkey(key);
-
-			string dirstructure = "";
-			foreach (var k in keyArray)
-                dirstructure += Path.DirectorySeparatorChar + k;
-
-            return File.Exists(filelocation + Path.DirectorySeparatorChar + dirstructure + Path.DirectorySeparatorChar + key + DB_EXTENTION);
+			return File.Exists(GetExactFileLocation(key, filelocation));
 		}
 
 		public static string GetExactFileLocation(string key, string filelocation)
 		{
-			var keyArray = Key.Splitkey(key);
-
-			string dirstructure = "";
-			foreach (var k in keyArray)
-                dirstructure += Path.DirectorySeparatorChar + k;
-
-            return filelocation + Path.DirectorySeparatorChar + dirstructure + Path.DirectorySeparatorChar + key + DB_EXTENTION;
+			return Path.Combine(
+				filelocation,
+				Path.Combine(Key.Splitkey(key).ToArray()),
+				key + DB_EXTENTION);
 		}
 
 		public static byte[] GetFromStorageWithKnownFileLocation(string filelocation)
 		{
-			byte[] bytes = File.ReadAllBytes(filelocation);
-			return bytes;
+			return File.ReadAllBytes(filelocation);
 		}
 
 
