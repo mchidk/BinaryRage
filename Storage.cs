@@ -2,6 +2,7 @@
 using System.Linq;
 using System.IO;
 using System.Threading;
+using System.Collections.Generic;
 
 namespace BinaryRage
 {
@@ -11,33 +12,21 @@ namespace BinaryRage
 
 		private static string createDirectoriesBasedOnKeyAndFilelocation(string filelocation,string key)
 		{
-			try
-			{
-				if (!Directory.Exists(filelocation))
-					Directory.CreateDirectory(filelocation);
-			}
-			catch (Exception)
-			{
-				
-			}
-
-			var keyArray = Key.Splitkey(key);
-			
-			string keypath = "";
-			foreach (var k in keyArray)
+			string pathSoFar = "";
+			foreach (var folder in GetFolders(key, filelocation))
 			{
 				try
 				{
-					keypath += Path.DirectorySeparatorChar + k;
-					if (!Directory.Exists(filelocation + keypath))
-						Directory.CreateDirectory(filelocation + keypath);
+					pathSoFar = Path.Combine(pathSoFar, folder);
+					if (!Directory.Exists(pathSoFar))
+						Directory.CreateDirectory(pathSoFar);
 				}
 				catch (Exception)
 				{
-					
+
 				}
 			}
-			return filelocation + keypath;
+			return pathSoFar;
 		}
 
 		public static void WritetoStorage(string key, byte[] value, string filelocation)
@@ -80,8 +69,7 @@ namespace BinaryRage
 		public static string GetExactFileLocation(string key, string filelocation)
 		{
 			return Path.Combine(
-				filelocation,
-				Path.Combine(Key.Splitkey(key).ToArray()),
+				Path.Combine(GetFolders(key, filelocation).ToArray()),
 				key + DB_EXTENTION);
 		}
 
@@ -90,7 +78,12 @@ namespace BinaryRage
 			return File.ReadAllBytes(filelocation);
 		}
 
-
+		private static IEnumerable<string> GetFolders(string key, string filelocation)
+		{
+			yield return filelocation;
+			foreach (var folder in Key.Splitkey(key))
+				yield return folder;
+		}
 
 	}
 }
