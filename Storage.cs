@@ -10,7 +10,7 @@ namespace BinaryRage
 	{
 		private const string DB_EXTENTION = ".odb";
 
-		private static string createDirectoriesBasedOnKeyAndFilelocation(string filelocation,string key)
+		private static string createDirectoriesBasedOnKeyAndFilelocation(string key, string filelocation)
 		{
 			string pathSoFar = "";
 			foreach (var folder in GetFolders(key, filelocation))
@@ -32,7 +32,7 @@ namespace BinaryRage
 		public static void WritetoStorage(string key, byte[] value, string filelocation)
 		{
 			//create folders
-			string dirstructure = createDirectoriesBasedOnKeyAndFilelocation(filelocation, key);
+			string dirstructure = createDirectoriesBasedOnKeyAndFilelocation(key, filelocation);
 
 			//Write the file to it's location
 			try
