@@ -12,6 +12,7 @@ namespace BinaryRage
     static public class DB
     {
         static BlockingCollection<SimpleObject> sendQueue = new BlockingCollection<SimpleObject>();
+        static readonly object LockObject = new object();
 
         static public void Insert<T>(string key, T value, string filelocation)
         {
@@ -29,7 +30,11 @@ namespace BinaryRage
 
             ThreadPool.QueueUserWorkItem(state =>
             {
-                Storage.WritetoStorage(data.Key, Compress.CompressGZip(ConvertHelper.ObjectToByteArray(value)), data.FileLocation);
+                lock (Cache.LockObject)
+                {
+                    Storage.WritetoStorage(data.Key, Compress.CompressGZip(ConvertHelper.ObjectToByteArray(value)),
+                        data.FileLocation);
+                }
             });
         }
 
@@ -40,7 +45,10 @@ namespace BinaryRage
                 Cache.CacheDic.Remove(filelocation + key);
             }
 
-            File.Delete(Storage.GetExactFileLocation(key, filelocation));
+            lock (DB.LockObject)
+            {
+                File.Delete(Storage.GetExactFileLocation(key, filelocation));
+            }
         }
 
         static public T Get<T>(string key, string filelocation)
@@ -54,9 +62,12 @@ namespace BinaryRage
             }
 
             //Get from disk
-            byte[] compressGZipData = Compress.DecompressGZip(Storage.GetFromStorage(key, filelocation));
-            T umcompressedObject = (T)ConvertHelper.ByteArrayToObject(compressGZipData);
-            return umcompressedObject;
+            lock (DB.LockObject)
+            {
+                byte[] compressGZipData = Compress.DecompressGZip(Storage.GetFromStorage(key, filelocation));
+                T umcompressedObject = (T) ConvertHelper.ByteArrayToObject(compressGZipData);
+                return umcompressedObject;
+            }
         }
 
         static public string GetJSON<T>(string key, string filelocation)
