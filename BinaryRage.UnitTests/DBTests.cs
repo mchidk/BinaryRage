@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BinaryRage;
-using FizzWare.NBuilder;
 
 namespace BinaryRage.UnitTests
 {
@@ -18,25 +17,30 @@ namespace BinaryRage.UnitTests
             public void ShouldInsertAnObjectToStore()
             { 
                 var model = new Model{Title ="title1", ThumbUrl="http://thumb.com/title1.jpg", Description="description1", Price=5.0F};
-                BinaryRage.DB<Model>.Insert("myModel", model, "dbfile");
+                BinaryRage.DB.Insert<Model>("myModel", model, "dbfile");
 
-                var result = BinaryRage.DB<Model>.Get("myModel", "dbfile");
+                var result = BinaryRage.DB.Get<Model>("myModel", "dbfile");
                
                 Assert.AreEqual(model, result);
-                BinaryRage.DB<Model>.Remove("myModel", "dbfile");
+                BinaryRage.DB.WaitForCompletion();
+                BinaryRage.DB.Remove("myModel", "dbfile");
             }
 
             [Test]
             public void ShouldInsertAListOfObjectsToStore()
             {
-                var models = Builder<Model>.CreateListOfSize(3)
-                                .Build().ToList();
-                BinaryRage.DB<List<Model>>.Insert("myModels", models, "dbfile");
+                var models = new List<Model> { 
+                    new Model{Title ="title1", ThumbUrl="http://thumb.com/title1.jpg", Description="description1", Price=5.0F},
+                    new Model{Title ="title2", ThumbUrl="http://thumb.com/title2.jpg", Description="description2", Price=6.0F},
+                    new Model{Title ="title3", ThumbUrl="http://thumb.com/title3.jpg", Description="description3", Price=7.0F},
+                };
+                BinaryRage.DB.Insert<List<Model>>("myModels", models, "dbfile");
 
-                var result = BinaryRage.DB<List<Model>>.Get("myModels", "dbfile");
+                var result = BinaryRage.DB.Get<List<Model>>("myModels", "dbfile");
 
                 CollectionAssert.AreEqual(models, result);
-                BinaryRage.DB<List<Model>>.Remove("myModels", "dbfile");
+                BinaryRage.DB.WaitForCompletion();
+                BinaryRage.DB.Remove("myModels", "dbfile");
             }
         }
     }

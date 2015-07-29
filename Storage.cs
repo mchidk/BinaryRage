@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Linq;
 using System.IO;
 using System.Threading;
+using System.Collections.Generic;
 
 namespace BinaryRage
 {
@@ -8,46 +10,34 @@ namespace BinaryRage
 	{
 		private const string DB_EXTENTION = ".odb";
 
-		private static string createDirectoriesBasedOnKeyAndFilelocation(string filelocation,string key)
+		private static string createDirectoriesBasedOnKeyAndFilelocation(string key, string filelocation)
 		{
-			try
-			{
-				if (!Directory.Exists(filelocation))
-					Directory.CreateDirectory(filelocation);
-			}
-			catch (Exception)
-			{
-				
-			}
-
-			var keyArray = Key.Splitkey(key);
-			
-			string keypath = "";
-			foreach (var k in keyArray)
+			string pathSoFar = "";
+			foreach (var folder in GetFolders(key, filelocation))
 			{
 				try
 				{
-					keypath += Path.DirectorySeparatorChar + k;
-					if (!Directory.Exists(filelocation + keypath))
-						Directory.CreateDirectory(filelocation + keypath);
+					pathSoFar = Path.Combine(pathSoFar, folder);
+					if (!Directory.Exists(pathSoFar))
+						Directory.CreateDirectory(pathSoFar);
 				}
 				catch (Exception)
 				{
-					
+
 				}
 			}
-			return filelocation + keypath;
+			return pathSoFar;
 		}
 
 		public static void WritetoStorage(string key, byte[] value, string filelocation)
 		{
 			//create folders
-			string dirstructure = createDirectoriesBasedOnKeyAndFilelocation(filelocation, key);
+			string dirstructure = createDirectoriesBasedOnKeyAndFilelocation(key, filelocation);
 
 			//Write the file to it's location
 			try
 			{
-                File.WriteAllBytes(dirstructure + Path.DirectorySeparatorChar + key + DB_EXTENTION, value);
+                File.WriteAllBytes(CombinePathAndKey(dirstructure, key), value);
 
                 lock (Cache.LockObject)
                 {
@@ -68,45 +58,37 @@ namespace BinaryRage
 
 		public static byte[] GetFromStorage(string key, string filelocation)
 		{
-			var keyArray = Key.Splitkey(key);
-
-			string dirstructure = "";
-			foreach (var k in keyArray)
-                dirstructure += Path.DirectorySeparatorChar + k;
-
-            byte[] bytes = File.ReadAllBytes(filelocation + Path.DirectorySeparatorChar + dirstructure + Path.DirectorySeparatorChar + key + DB_EXTENTION);
-			return bytes;
+			return File.ReadAllBytes(GetExactFileLocation(key, filelocation));
 		}
 
 		public static bool ExistingStorageCheck(string key, string filelocation)
 		{
-			var keyArray = Key.Splitkey(key);
-
-			string dirstructure = "";
-			foreach (var k in keyArray)
-                dirstructure += Path.DirectorySeparatorChar + k;
-
-            return File.Exists(filelocation + Path.DirectorySeparatorChar + dirstructure + Path.DirectorySeparatorChar + key + DB_EXTENTION);
+			return File.Exists(GetExactFileLocation(key, filelocation));
 		}
 
 		public static string GetExactFileLocation(string key, string filelocation)
 		{
-			var keyArray = Key.Splitkey(key);
-
-			string dirstructure = "";
-			foreach (var k in keyArray)
-                dirstructure += Path.DirectorySeparatorChar + k;
-
-            return filelocation + Path.DirectorySeparatorChar + dirstructure + Path.DirectorySeparatorChar + key + DB_EXTENTION;
+			return CombinePathAndKey(
+				path: Path.Combine(GetFolders(key, filelocation).ToArray()),
+				key: key);
 		}
 
 		public static byte[] GetFromStorageWithKnownFileLocation(string filelocation)
 		{
-			byte[] bytes = File.ReadAllBytes(filelocation);
-			return bytes;
+			return File.ReadAllBytes(filelocation);
 		}
 
+		private static string CombinePathAndKey(string path, string key)
+		{
+			return Path.Combine(path, key + DB_EXTENTION);
+		}
 
+		private static IEnumerable<string> GetFolders(string key, string filelocation)
+		{
+			yield return filelocation;
+			foreach (var folder in Key.Splitkey(key))
+				yield return folder;
+		}
 
 	}
 }

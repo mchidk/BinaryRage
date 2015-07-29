@@ -30,9 +30,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="FizzWare.NBuilder">
-      <HintPath>..\packages\NBuilder.3.0.1.1\lib\FizzWare.NBuilder.dll</HintPath>
-    </Reference>
     <Reference Include="nunit.framework">
       <HintPath>..\packages\NUnit.2.6.2\lib\nunit.framework.dll</HintPath>
     </Reference>
@@ -48,6 +45,7 @@
     <Compile Include="DBTests.cs" />
     <Compile Include="Model.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StorageLocationTests.cs" />
     <Compile Include="WaitForCompletionTests.cs" />
     <Compile Include="SmallKeyTests.cs" />
   </ItemGroup>
@@ -56,7 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BinaryRage.csproj">
-      <Project>{191D893F-7087-4E59-9AEE-5FEF4172E3FC}</Project>
+      <Project>{191d893f-7087-4e59-9aee-5fef4172e3fc}</Project>
       <Name>BinaryRage</Name>
     </ProjectReference>
   </ItemGroup>

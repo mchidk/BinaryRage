@@ -23,15 +23,15 @@ namespace BinaryRage.UnitTests
 		{
 			var m = new Model { Description = "foobar" };
 			for (int i = 0; i < 10; i++)
-				BinaryRage.DB<Model>.Insert("key" + i, m, DB_NAME);
+				BinaryRage.DB.Insert<Model>("key" + i, m, DB_NAME);
 
 			// Without calling the wait method this test will fail every time
 			// with a DirectoryNotFoundException
-			BinaryRage.DB<Model>.WaitForCompletion();
+			BinaryRage.DB.WaitForCompletion();
 
 			var readObjects = new Dictionary<string, Model>();
 			for (int i = 0; i < 10; i++)
-				readObjects.Add("key" + i, BinaryRage.DB<Model>.Get("key" + i, DB_NAME));
+				readObjects.Add("key" + i, BinaryRage.DB.Get<Model>("key" + i, DB_NAME));
 
 			Assert.AreEqual(m.Description, readObjects["key0"].Description);
 			Assert.AreEqual(m.Description, readObjects["key9"].Description);
