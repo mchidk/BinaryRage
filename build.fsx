@@ -87,6 +87,7 @@ Target "Default" DoNothing
 
 // Dependencies
 "Clean" 
+  ==> "SetAssemblyInfo"
   ==> "BuildBinaryRage"
   ==> "BuildTests"
   ==> "RunTests"
