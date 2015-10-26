@@ -54,6 +54,7 @@
     <Compile Include="Storage.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="BinaryRage.nuspec" />
     <None Include="readme.md" />
   </ItemGroup>
   <ItemGroup />

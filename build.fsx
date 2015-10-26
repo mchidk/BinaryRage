@@ -71,6 +71,20 @@ Target "Deploy" (fun _ ->
     CopyDir deployDir buildDir allFiles
 )
 
+Target "CreateNugetPackage" (fun _ ->
+    NuGet (fun p ->
+        {p with
+            Project = projectName
+            Version = version
+            OutputPath = deployDir
+            WorkingDir = buildDir
+            NoPackageAnalysis = false
+            Publish = false
+            ToolPath = @".\tools\nuget\nuget.exe"
+        })
+        (@".\BinaryRage.nuspec")
+)
+
 Target "Default" DoNothing
 
 // Dependencies
@@ -79,6 +93,7 @@ Target "Default" DoNothing
   ==> "BuildTests"
   ==> "RunTests"
   ==> "Deploy"
+  ==> "CreateNugetPackage"
   ==> "Default"
 
 // start build
