@@ -69,6 +69,13 @@ DocProject/Help/html
 # Click-Once directory
 publish
 
+# FAKE build items
+test/
+build/
+deploy/
+.fake/
+tools/FAKE/
+
 # Others
 [Bb]in
 [Oo]bj
