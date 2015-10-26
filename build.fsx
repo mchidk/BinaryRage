@@ -33,11 +33,8 @@ Target "SetAssemblyInfo" (fun _ ->
     trace " --- Setting assembly version information --- "
 
     CreateCSharpAssemblyInfo "./Properties/AssemblyVersionInfo.cs"
-        [Attribute.Title projectName
-         Attribute.Description projectName
-         Attribute.Guid "191D893F-7087-4E59-9AEE-5FEF4172E3FC"
-         Attribute.Product projectName
-         Attribute.Version version
+        [Attribute.Version version
+         Attribute.InformationalVersion version
          Attribute.FileVersion version]
 )
 
