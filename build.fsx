@@ -11,10 +11,8 @@ RestorePackages()
 let buildDir  = @".\build\"
 let testDir   = @".\test\"
 let deployDir = @".\deploy\"
-let packagesDir = @".\packages\"
 
 // Properties
-let buildMode = getBuildParamOrDefault "buildMode" "Release"
 let buildNumber = getBuildParamOrDefault "buildNumber" "0"
 let releaseNotes = 
     ReadFile "ReleaseNotes.md"
