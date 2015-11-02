@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\AssemblyVersionInfo.cs" />
     <Compile Include="Cache.cs" />
     <Compile Include="DB.cs" />
     <Compile Include="Functions\Compress.cs" />
@@ -54,6 +55,7 @@
     <Compile Include="Storage.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="BinaryRage.nuspec" />
     <None Include="readme.md" />
   </ItemGroup>
   <ItemGroup />
