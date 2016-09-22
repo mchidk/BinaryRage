@@ -17,7 +17,7 @@ let buildNumber = getBuildParamOrDefault "buildNumber" "0"
 let releaseNotes = 
     ReadFile "ReleaseNotes.md"
     |> ReleaseNotesHelper.parseReleaseNotes
-let projectName = "BinaryRage"
+let projectName = "BinaryRage-RaySearch"
 let version = releaseNotes.AssemblyVersion + "." + buildNumber
 
 // Targets
