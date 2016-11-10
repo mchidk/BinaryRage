@@ -25,7 +25,7 @@
         <tags>NOSQL cache KeyValueStore ObjectSerialization ObjectSerializer database fast</tags>
     </metadata>
     <files>
-        <file src="BinaryRage.dll" target="lib\net40\BinaryRage.dll" />
-        <file src="BinaryRage.pdb" target="lib\net40\BinaryRage.pdb" />
+        <file src="BinaryRage.dll" target="lib\net461\BinaryRage.dll" />
+        <file src="BinaryRage.pdb" target="lib\net461\BinaryRage.pdb" />
     </files>
 </package>

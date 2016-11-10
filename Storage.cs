@@ -51,9 +51,6 @@ namespace BinaryRage
 			}
 
 			Interlocked.Decrement(ref Cache.counter);
-
-            //Calculate pause based on amount of bytes
-            Thread.Sleep(value.Length / 100);
 		}
 
 		public static byte[] GetFromStorage(string key, string filelocation)
