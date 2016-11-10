@@ -8,16 +8,20 @@ using BinaryRage;
 
 namespace BinaryRage.UnitTests
 {
-    public class DBTests
+  using System.IO.Compression;
+
+  public class DBTests
     {
         [TestFixture]
         public class InsertTests
         {
-            [Test]
-            public void ShouldInsertAnObjectToStore()
+            [Test, Sequential]
+            public void ShouldInsertAnObjectToStoreWithAnyCompressionLevel(
+                  [Values(CompressionLevel.Fastest, CompressionLevel.NoCompression, CompressionLevel.Optimal)] CompressionLevel compressionLevel)
             { 
                 var model = new Model{Title ="title1", ThumbUrl="http://thumb.com/title1.jpg", Description="description1", Price=5.0F};
-                BinaryRage.DB.Insert<Model>("myModel", model, "dbfile");
+
+                BinaryRage.DB.Insert<Model>("myModel", model, "dbfile", compressionLevel);
 
                 var result = BinaryRage.DB.Get<Model>("myModel", "dbfile");
                
@@ -27,6 +31,20 @@ namespace BinaryRage.UnitTests
             }
 
             [Test]
+            public void ShouldInsertAnObjectToStore()
+            {
+              var model = new Model { Title = "title1", ThumbUrl = "http://thumb.com/title1.jpg", Description = "description1", Price = 5.0F };
+
+              BinaryRage.DB.Insert<Model>("myModel", model, "dbfile");
+
+              var result = BinaryRage.DB.Get<Model>("myModel", "dbfile");
+
+              Assert.AreEqual(model, result);
+              BinaryRage.DB.WaitForCompletion();
+              BinaryRage.DB.Remove("myModel", "dbfile");
+            }
+
+      [Test]
             public void ShouldInsertAListOfObjectsToStore()
             {
                 var models = new List<Model> { 
