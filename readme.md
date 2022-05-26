@@ -16,44 +16,51 @@
 ## Show me the code
 Simple class - simply include an [Serializable] attribute.
 
-	[Serializable]
-	public class Product
-	{
-		public string Title { get; set; }
-		public string ThumbUrl { get; set; }
-		public string Description { get; set; }
-		public float Price { get; set; }
-	}
-
+````csharp
+[Serializable]
+public class Product
+{
+    public string Title { get; set; }
+    public string ThumbUrl { get; set; }
+    public string Description { get; set; }
+    public float Price { get; set; }
+}
+````
 Insert-syntax (same for create and update)
 
-	BinaryRage.DB.Insert("mykey", myProduct, @"C:\testpath");
+````csharp
+BinaryRage.DB.Insert("mykey", myProduct, @"C:\testpath");
+````
 
 ... or with a list
-
-	BinaryRage.DB.Insert("mykey", listOfProducts, @"C:\testpath");
+````csharp
+BinaryRage.DB.Insert("mykey", listOfProducts, @"C:\testpath");
+````
 
 Get the saved data
+````csharp
+var myProduct = BinaryRage.DB.Get<Product>("mykey", @"C:\testpath");
+````
 
-	var myProduct = BinaryRage.DB.Get<Product>("mykey", @"C:\testpath");
-	
 ... or with a list
-
-	var listOfProducts = BinaryRage.DB.Get<List<Product>>("mykey", @"C:\testpath");
+````csharp
+var listOfProducts = BinaryRage.DB.Get<List<Product>>("mykey", @"C:\testpath");
+````
 
 ... get JSON 
-
-	var myJSON = BinaryRage.DB.GetJSON<List<Product>>("mykey", @"C:\testpath");
-
+````csharp
+var myJSON = BinaryRage.DB.GetJSON<List<Product>>("mykey", @"C:\testpath");
+````
 
 Query objects directly with LINQ
-
-	var bestsellers = BinaryRage.DB.Get<List<Category>>("bestsellers", @"C:\products\").Where(p => !string.IsNullOrEmpty(p.Name));
+````csharp
+var bestsellers = BinaryRage.DB.Get<List<Category>>("bestsellers", @"C:\products\").Where(p => !string.IsNullOrEmpty(p.Name));
+````
 
 Check if all writes are done
-
-	BinaryRage.DB.WaitForCompletion();
-
+````csharp
+BinaryRage.DB.WaitForCompletion();
+````
 
 
 That's it - can it be any simpler?
@@ -61,16 +68,18 @@ That's it - can it be any simpler?
 ## Key API
 
 Generate a unique key
-
-	BinaryRage.Key.GenerateUniqueKey();
+````csharp
+BinaryRage.Key.GenerateUniqueKey();
+````
 
 Calculate checksum on a string
-
-	BinaryRage.Key.CalculateChecksum(string inputString);
-
+````csharp
+BinaryRage.Key.CalculateChecksum(string inputString);
+````
 Fast MD5Hash generating
-
-	BinaryRage.Key.GenerateMD5Hash(string input);
+````csharp
+BinaryRage.Key.GenerateMD5Hash(string input);
+````
 
 ## Goals
 Codebase and usage must be as simple as possible (but not simpler).
